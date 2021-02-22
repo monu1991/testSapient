@@ -4,24 +4,42 @@ import { TransferHttpService } from '@gorniv/ngx-universal';
 import { MetaService } from '@ngx-meta/core';
 import { UniversalStorage } from '@shared/storage/universal.storage';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
+import {LocalService} from '../services/local.services';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   errorMessage: string;
+  launchPrograms: any[] = [];
+  yearArray:number[]=[];
+  developedBY: string = "Nirzar Ambade";
+  selectedYear: number;
+  selectedLaunchValue: boolean;
+  selectedLandValue: boolean;
+  currentUrl = null;
   constructor(
     @Inject(PLATFORM_ID) private _platformId: Object,
     private _http: TransferHttpService,
     private readonly _meta: MetaService,
     private _universalStorage: UniversalStorage,
+    private localService: LocalService,
+    private _route: ActivatedRoute,
+    private _router: Router,
     // instead window.document
     @Inject(DOCUMENT) private _document: Document,
   ) {}
 
   ngOnInit(): void {
-    this._universalStorage.removeItem('test');
+    this._universalStorage.removeItem('test');    
+    let tempArray: number[] = [];
+    for(let i=2006;i<=2020;i++){
+      tempArray.push(i);
+    }
+    this.yearArray = [].concat(tempArray);
     let resultCookie = this._universalStorage.getItem('test');
     if (resultCookie) {
       this.errorMessage = 'Cookie remove item not working';
@@ -38,5 +56,61 @@ export class HomeComponent implements OnInit {
     const t = window;
     const t1 = document;
     this._meta.setTag('description', 'Meta update from init');
+    this.getLaunchPrograms();
+  }
+  
+
+  getLaunchPrograms(){
+    this.localService.launchPrograms()
+      .subscribe((launchPrograms:any[])=>{ 
+        this.launchPrograms =launchPrograms;  
+        console.log("aslkhfdkhd");         
+      console.log(this.launchPrograms); 
+      });
+  }
+
+  filterByYear(year:number) {
+    this.selectedYear = year;
+    this._router.navigate([], {
+      relativeTo: this._route,
+      queryParams: {
+        launch_year: year
+      },
+      queryParamsHandling: 'merge',
+      // preserve the existing query params in the route
+      skipLocationChange: false
+      // do not trigger navigation
+    });
+    this.launchPrograms = this.launchPrograms.filter(x=>x.launch_year == year);
+  }
+
+  filterByLaunch(isSuccess:boolean) {
+    this._router.navigate([], {
+      relativeTo: this._route,
+      queryParams: {
+        launch_success: isSuccess
+      },
+      queryParamsHandling: 'merge',
+      // preserve the existing query params in the route
+      skipLocationChange: false
+      // do not trigger navigation
+    });
+    this.launchPrograms = this.launchPrograms.filter(x=>x.launch_success === isSuccess);
+    this.selectedLaunchValue = isSuccess;
+  }
+
+  filterByLanding(isSuccess:boolean) {
+    this._router.navigate([], {
+      relativeTo: this._route,
+      queryParams: {
+        land_success: isSuccess
+      },
+      queryParamsHandling: 'merge',
+      // preserve the existing query params in the route
+      skipLocationChange: false
+      // do not trigger navigation
+    });
+    this.launchPrograms = this.launchPrograms.filter(x=>x.launch_landing === isSuccess);
+    this.selectedLandValue = isSuccess;
   }
 }

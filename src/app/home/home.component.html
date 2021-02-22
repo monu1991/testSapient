@@ -1,4 +1,99 @@
-<h1>{{ "home.title" | translate }}</h1>
-<p>{{ "home.text" | translate }}</p>
-<p>{{ "home.notranslatewarn" | translate }}</p>
-<p *ngIf="errorMessage">errorMessage:{{errorMessage}}</p>
+
+<div class="main-container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm">
+                <h2>SpaceX Launch Program</h2>
+            </div>
+        </div>
+    </div>
+  
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-3 filters-wrap" >
+                <div class="card">
+                    <div class="card-body">
+                        <h6><strong>Filters</strong></h6>
+                        <p class="filter-heading">Launch Year</p>
+                        <ul class="filters">
+                            <li *ngFor="let item of yearArray" [ngClass]="{'active': item===selectedYear}">
+                              <label>
+                                <input type="button" (click)="filterByYear(item)" class="filters-check" value="{{item}}"> {{item}}
+                              </label>
+                            </li>
+                        </ul>
+                    </div>
+  
+                    <div class="card-body">
+                        <p class="filter-heading">Successful Launch</p>
+                        <ul class="filters">
+                            <li [ngClass]="{'active': selectedLaunchValue && selectedLaunchValue === true}">
+                                <label>
+                                    <input type="button" (click)="filterByLaunch(true)"  name="Successful_Launch" class="filters-check" value="true">
+                                    True
+                                </label>
+                            </li>
+                            <li [ngClass]="{'active': selectedLaunchValue != undefined && !selectedLaunchValue}">
+                                <label>
+                                    <input type="button" (click)="filterByLaunch(false)"  name="Successful_Launch" class="filters-check"
+                                        value="false"> False
+                                </label>
+                            </li>
+  
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p class="filter-heading">Successful Landing</p>
+                        <ul class="filters">
+                            <li [ngClass]="{'active': selectedLandValue && selectedLandValue === true}">
+                                <label>
+                                    <input type="button" (click)="filterByLanding(true)"  name="Successful_Landing" class="filters-check"
+                                        value="true"> True
+                                </label>
+                            </li>
+                            <li [ngClass]="{'active': selectedLandValue != undefined && !selectedLandValue}">
+                                <label>
+                                    <input type="button" (click)="filterByLanding(false)"  name="Successful_Landing" class="filters-check"
+                                        value="false"> False
+                                </label>
+                            </li>
+  
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-9 launch-cards">
+                <div class="row">
+                  <div class="col-md-6 col-lg-3 col-sm-12" *ngFor="let item of launchPrograms">
+                    <div class="card" style="width: 18rem;">
+                      <div class="card-image">
+                          <img src="{{item.links.mission_patch}}" class="card-img-top" alt="...">
+                      </div>
+                      <div class="card-body">
+                          <h6 class="card-title"><strong><a href="#">{{item.mission_name + ' #' +item.flight_number}}</a></strong></h6>
+                          <p class="card-text"><strong>Mission Ids:</strong> 
+                              <li *ngFor="let missionId of item.mission_id">
+                                <a href="#">{{missionId}}</a>
+                              </li>
+                          </p>
+                          <p class="card-text"><strong>Launch Year:</strong> <a href="#">{{item.launch_year}}</a></p>
+                          <p class="card-text"><strong>Successful Launch:</strong> <a href="#">{{item.launch_success}}</a></p>
+                          <p class="card-text"><strong>Successful Landing:</strong> <a href="#">{{item.launch_landing}}</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+            </div>
+  
+        </div>
+    </div>
+  
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm">
+                <h4 class="text-center"><strong>Developed By: </strong> {{developedBY}}</h4>
+            </div>
+        </div>
+    </div>
+  </div>

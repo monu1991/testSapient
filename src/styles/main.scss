@@ -1,15 +1,94 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-// Resets
-@import 'resets/normalize';
-@import 'resets/print';
-// Core
-@import 'core/variables';
-@import 'core/base';
-// Helpers
-@import 'helpers/index';
-// Layouts
-@import 'layouts/footer';
-@import 'layouts/sidebar';
-@import 'layouts/toolbar';
-@import 'layouts/wrapper';
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.home{
+    margin: 2% 5%;
+}
+.menu{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    button{
+        font-size: 1em;
+    }
+}
+
+.main-container {
+    background: #f2f2f2;
+    max-width: 1250px;
+    margin: auto;
+}
+
+.main-container .launch-cards .card {
+    width: 100% !important;
+    background: #fff;
+    border-radius: 7px;
+    border: 0;
+    margin-bottom: 20px;
+}
+
+.main-container .filters-wrap .card {
+    border-radius: 7px;
+    border: 0;
+}
+.main-container .launch-cards .card p {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.main-container .launch-cards .card .card-image {
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+.filters,
+.filters li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.filters li {
+    width: 40%;
+    float: left;
+    background: #c5e09d;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.filters li label {
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    height: 30px;
+    line-height: 31px;
+    margin: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filters li label input {
+    display: none;
+}
+
+.filters li.active {
+    background: #7cba1e;
+}
+
+.filters li:nth-child(even) {
+    float: right;
+}
+
+p.filter-heading {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    width: 80%;
+    margin: 10px auto;
+}
+.launch-cards a{
+    color: #4c558e;
+}
+
+.filters-wrap{
+    margin-bottom: 20px;
+}

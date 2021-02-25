@@ -72,6 +72,9 @@ export class HomeComponent implements OnInit {
       skipLocationChange: false
       // do not trigger navigation
     });
+    this.selectedYear = null;
+    this.selectedLaunchValue = null;
+    this.selectedLandValue = null;
   }
 
   getLaunchPrograms(){

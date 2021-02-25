@@ -13,7 +13,10 @@
             <div class="col-sm-12 col-md-3 filters-wrap" >
                 <div class="card">
                     <div class="card-body">
-                        <h6><strong>Filters</strong></h6>
+                        <h6><strong>Filters</strong>
+                        </h6>
+                        
+                        <button (click)="clearFilters()" class="btn btn-outline-primary btn-sm">Clear Filters</button>
                         <p class="filter-heading">Launch Year</p>
                         <ul class="filters">
                             <li *ngFor="let item of yearArray" [ngClass]="{'active': item===selectedYear}">

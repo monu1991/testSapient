@@ -59,13 +59,25 @@ export class HomeComponent implements OnInit {
     this.getLaunchPrograms();
   }
   
+  clearFilters(){
+    this._router.navigate([], {
+      relativeTo: this._route,
+      queryParams: {
+        launch_year: null,
+        launch_success: null,
+        land_success: null
+      },
+      queryParamsHandling: 'merge',
+      // preserve the existing query params in the route
+      skipLocationChange: false
+      // do not trigger navigation
+    });
+  }
 
   getLaunchPrograms(){
     this.localService.launchPrograms()
       .subscribe((launchPrograms:any[])=>{ 
         this.launchPrograms =launchPrograms;  
-        console.log("aslkhfdkhd");         
-      console.log(this.launchPrograms); 
       });
   }
 
